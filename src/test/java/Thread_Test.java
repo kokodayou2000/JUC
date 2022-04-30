@@ -1,6 +1,8 @@
+import org.junit.Test;
 
+import java.util.concurrent.TimeUnit;
 
-public class Thread {
+public class Thread_Test {
     @org.junit.Test
     public void test() throws InterruptedException {
 
@@ -35,5 +37,28 @@ public class Thread {
         //t1.join();//也可以顺序
         t2.start();
         t3.start();
+    }
+
+    @Test
+    public void Thread_Null() throws InterruptedException {
+        //线程能在运行的时候，被设置为null吗？
+        Thread t1 = new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Is Living");
+            }
+        });
+        t1.start();
+        //当线程启动之后，即使再被设置为null也会继续执行
+        t1 = null;
+
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("T1 == null");
     }
 }
