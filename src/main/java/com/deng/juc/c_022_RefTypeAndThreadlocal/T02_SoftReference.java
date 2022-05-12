@@ -4,9 +4,12 @@ import java.lang.ref.SoftReference;
 
 public class T02_SoftReference {
     public static void main(String[] args) {
-        SoftReference<byte[]> m = new SoftReference<>(new byte[1024*1024*10]);
+        //软引用主要是用来做缓存的，比如去读取一个大的图片，虽然可以
 
+        SoftReference<byte[]> m = new SoftReference<>(new byte[1024*1024*10]);
+        //先设置堆内存大小 vm option    -Xms20M -Xmx20M
         System.out.println(m.get());
+        //调用了gc，但是jvm还有空间，就不会清理掉软引用
         System.gc();
         try {
             Thread.sleep(500);
