@@ -5,6 +5,10 @@ import java.util.Hashtable;
 import java.util.UUID;
 
 public class T01_TestHashtable {
+    /*
+    Hashtable在每一个关键的方法上都添加了synchronized，所以效率会慢，但是结果依然是正确的
+     */
+
     static Hashtable<UUID,UUID> m =new Hashtable<>();
 
     static int count = Constants.COUNT;

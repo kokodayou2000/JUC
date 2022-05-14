@@ -5,6 +5,9 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class T04_TestConcurrentHashMap {
+
+    //juc下的同步容器，使用了比较好的同步方法
+    //这个容器的读有很好的效率提升，但是写的效率没有传统的带锁HashMap或者Hashtable高
     static Map<UUID,UUID> m = new ConcurrentHashMap<UUID, UUID>();
 
     static int count = Constants.COUNT;
@@ -46,9 +49,33 @@ public class T04_TestConcurrentHashMap {
         for (Thread t : threads) {
             t.join();
         }
-        System.out.println(System.currentTimeMillis() - start);
+        long end = System.currentTimeMillis();
+        System.out.println("write speed ->"+(end - start));
         System.out.println(m.size());
+        //---------------
+        start = System.currentTimeMillis();
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(()->{
+                for (int j = 0; j < 10000000; j++) {
+                    m.get(keys[10]);
+                }
+            });
+        }
 
+        for(Thread t : threads) {
+            t.start();
+        }
+
+        for(Thread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        end = System.currentTimeMillis();
+        System.out.println("read speed ->"+(end - start));
 
 
 

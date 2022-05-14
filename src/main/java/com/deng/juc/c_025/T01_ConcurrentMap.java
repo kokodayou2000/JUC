@@ -9,11 +9,12 @@ import java.util.concurrent.CountDownLatch;
 public class T01_ConcurrentMap {
     public static void main(String[] args) throws InterruptedException {
         Map<String,String> map = new ConcurrentHashMap<>();
+        //ConcurrentSkipListMap其实是为了代替TreeMap的，因为CAS操作
+        //在树结构上很难实现，所以使用了跳表来实现
+
 //        Map<String,String> map = new ConcurrentSkipListMap<>();
 //        Map<String,String> map = new Hashtable<>();
 //        HashMap<String, String> map = new HashMap<>();
-
-
 
         Random r = new Random();
         Thread[] threads = new Thread[100];

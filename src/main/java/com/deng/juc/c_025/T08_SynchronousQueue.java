@@ -18,8 +18,5 @@ public class T08_SynchronousQueue {
         strs.put("aaa");
 
         System.out.println(strs.size());
-
-
-
     }
 }

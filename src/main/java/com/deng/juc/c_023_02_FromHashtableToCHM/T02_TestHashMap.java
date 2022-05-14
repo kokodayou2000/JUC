@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class T02_TestHashMap {
+    /*
+    无锁的效率更高，但是无法保证数据一致性
+     */
     static HashMap<UUID,UUID> m = new HashMap<>();
 
     static int count = Constants.COUNT;
@@ -48,9 +51,27 @@ public class T02_TestHashMap {
         for (Thread t : threads) {
             t.join();
         }
-        System.out.println(System.currentTimeMillis() - start);
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
         System.out.println(m.size());
-
+//-----------------------------
+        start = System.currentTimeMillis();
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(()->{
+                // foreach thread do 1千万次get方法
+                for (int j = 0; j < 10000000; j++) {
+                    m.get(keys[10]);
+                }
+            });
+        }
+        for (Thread t : threads) {
+            t.start();
+        }
+        for (Thread t : threads) {
+            t.join();
+        }
+        end = System.currentTimeMillis();
+        System.out.println(end - start);
     }
 
 

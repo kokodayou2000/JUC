@@ -7,6 +7,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class T02_CopyOnWriteList {
     public static void main(String[] args) {
+        //当容器写的线程比较少，读的线程比较多的时候，就用CopyOnWriteArrayList吧
+        //COW，在读的时候不加锁，写的时候加锁
+        //当写入一个元素的时候，将原来数组复制到一个比原来数组长度+1的新数组上（这个过程是加锁的）
+
         List<String> lists = new CopyOnWriteArrayList<>();
         Random r = new Random();
         Thread[] threads = new Thread[100];
