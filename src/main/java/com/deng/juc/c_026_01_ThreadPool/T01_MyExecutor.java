@@ -1,0 +1,16 @@
+package com.deng.juc.c_026_01_ThreadPool;
+
+import java.util.concurrent.Executor;
+
+public class T01_MyExecutor implements Executor {
+    public static void main(String[] args) {
+        new T01_MyExecutor().execute(()->{
+            System.out.println("Hello executor");
+        });
+    }
+
+    @Override
+    public void execute(Runnable command) {
+        command.run();
+    }
+}

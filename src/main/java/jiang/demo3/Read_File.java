@@ -33,8 +33,6 @@ public class Read_File {
 
         for (Character character : keySet) {
             System.out.println(character+" - "+map.get(character));
-
-
             sum += map.get(character);
         }
 
