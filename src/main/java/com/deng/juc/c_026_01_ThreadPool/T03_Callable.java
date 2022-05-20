@@ -5,12 +5,13 @@ import java.util.concurrent.*;
 public class T03_Callable {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        Callable callable = () -> "Hello Callable";
-
+        Callable<String> callable = () -> "Hello Callable";
+        //test
         Runnable t = ()->{
             System.out.println("???");
         };
         new Thread(t).start();
+        //test
 
         ExecutorService service = Executors.newCachedThreadPool();
         Future<String> future = service.submit(callable);
