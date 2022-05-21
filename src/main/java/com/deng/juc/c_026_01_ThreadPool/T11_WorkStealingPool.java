@@ -7,6 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 public class T11_WorkStealingPool {
     public static void main(String[] args) throws IOException {
+        //每一个线程有单独的队列，当某个线程将它维护的队列执行完成的时候，就会去别的线程维护的队列里面去“偷任务”
+        //从tail偷，增加到tail上
+        //当对线程自己维护的队列进行push or pop 的时候，不需要加锁，但是执行pop work steal需要加锁
         ExecutorService service = Executors.newWorkStealingPool();
         System.out.println(Runtime.getRuntime().availableProcessors());
 

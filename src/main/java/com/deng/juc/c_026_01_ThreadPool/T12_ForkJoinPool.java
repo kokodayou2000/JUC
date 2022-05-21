@@ -44,7 +44,7 @@ public class T12_ForkJoinPool {
             }
         }
     }
-
+    //继承递归task
     static class AddTaskRet extends RecursiveTask<Long> {
         private static final long serialVersion = 1L;
         int start,end;
@@ -66,11 +66,12 @@ public class T12_ForkJoinPool {
 
             int middle = start + (end - start)/2;
 
+            //有种分治的感觉了， divide
             AddTaskRet subTask1 = new AddTaskRet(start,middle);
             AddTaskRet subTask2 = new AddTaskRet(middle,end);
             subTask1.fork();
             subTask2.fork();
-
+            //conquer
             return subTask1.join() + subTask2.join();
         }
     }
